@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+     <p>Here "con" is instanitiated object. Which is indirectly scope property.</p>
+    
+    <p>Controller scope </p>    
+    <div>hello dude {{numOne}}</div>
+    <p>It is nothing but we are refering  $scope.con.name</p>
+    
+    
+</div>
+
+
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    //No reference to scope 
+    myapp.controller("MyController", function($scope,$q) {
+          $scope.addNum = function(num){
+            var q = $q.defer();
+            if(angular.isNumber(num)){
+                q.resolve(num+1);
+            }else{
+                q.reject(Nan);
+            }
+            return q.promise;
+          }
+
+          $scope.numOne = 0;
+          $scope.promise = $scope.addNum($scope.numOne);
+
+          $scope.promise
+                .then(  function(v){ return $scope.addNum(v);})
+                .then(  function(v){ return $scope.addNum(v);})
+                        
+                .then(  function(v){ $scope.numOne = v;},
+                        function(err){ $scope.numOne = err;})
+
+                
+    });
+
+   
+</script>
+</html>
+

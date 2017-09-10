@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController as con" >
+     <p>Here "con" is instanitiated object. Which is indirectly scope property.</p>
+    
+    <p>Controller scope </p>    
+    <div>hello dude {{con.name}}</div>
+    <p>It is nothing but we are refering  $scope.con.name</p>
+    
+    
+</div>
+
+<div ng-controller="MyControllerTwo as o" >
+     
+    <p>Controller scope </p>    
+    <div>hello dude {{o.name}}</div>
+    
+    
+</div>
+<div ng-controller="ThirdCon" >
+     
+    <p>Controller scope </p>    
+    <div>hello dude {{name}}</div>
+    
+    
+</div>
+
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    //No reference to scope 
+    myapp.controller("MyController", function() {
+          this.name = "Jakob";        
+    });
+
+    //Assigning scope to this
+    myapp.controller("MyControllerTwo", function($scope) {
+    	$scope.o = this;
+        this.name = "Jakob";        
+        
+    });
+    //Standard way
+    myapp.controller("ThirdCon", ["$scope",function($scope) {
+    	$scope.name = "Jakob";        
+        
+    }]);
+</script>
+</html>
+

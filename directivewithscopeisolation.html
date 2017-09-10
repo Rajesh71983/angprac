@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+    <userinfo user="john"></userinfo>
+    <userinfo user="jakob"></userinfo>
+</div>
+</body>
+<script>
+    angular.module("myapp", [])
+           .directive('userinfo', function() {
+                var directive = {};
+
+                directive.restrict = 'E';
+
+                directive.template = "User : <b>{{user.firstName}}</b> <b>{{user.lastName}}</b>";
+
+                directive.scope = {
+                    user : "=user"
+                }
+
+                return directive;
+            })
+            .controller("MyController", function($scope, $http) {
+                $scope.jakob = {};
+                $scope.jakob.firstName = "Jakob";
+                $scope.jakob.lastName  = "Jenkov";
+
+                $scope.john = {};
+                $scope.john.firstName = "John";
+                $scope.john.lastName  = "Doe";
+            });
+</script>
+</html>
+

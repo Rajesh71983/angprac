@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="angular.min.js"></script>
+  <script src="angularmodel.js"></script>
+</head>
+
+<body ng-app="myapp">
+
+  <div ng-controller="MyController" >
+      <span>{{emp.name}}</span>
+      <span>{{emp.age}}</span>
+      <span ng-show="myData.showIt">Hello All</span>
+       <div ng-switch on="myData.switch">
+        <div ng-switch-when="1">Shown when switch is 1</div>
+        <div ng-switch-when="2">Shown when switch is 2</div>
+        <div ng-switch-default>Shown when switch is anything else than 1 and 2</div>
+    </div>
+
+    <div ng-repeat="item in myData.items">
+      <span>{{item.text}}</span>
+    </div>
+
+    <ol>
+        <li ng-repeat-start="(name, value) in myData.items">{{name}}</li>
+        <li ng-repeat-end>{{value}}</li>
+    </ol>
+  </div>
+
+
+  <script>
+    
+  </script>
+
+</body>
+</html>

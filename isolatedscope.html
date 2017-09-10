@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+     <p>Directive scope </p>
+    <div my-transclude name1="{{name}}" age="age" func="getName()"></div>
+
+    <p>Controller scope </p>    
+    <div>hello dude {{name}}</div>
+    <div>hello dude {{age}}</div>
+    <div><input type="text" ng-model="name" ></div>
+    
+</div>
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    
+    myapp.directive('myTransclude', function() {
+       
+        return {
+            scope: {
+                name1: "@",
+                age: "=",
+                func: "&"
+            },
+            restrict : 'A', /* restrict this directive to elements */
+            template : [
+            '<div>My value of firstName in directive {{name1}}</div>',
+            '<div><input type="text" ng-model="name1"></div>',
+            '<div>{{age}}</div>',
+            '<div><input type="text" ng-model="age"></div>',
+            '<div><input type="button" ng-click="func()" value="directive button"></div>',
+            ].join('')
+        };
+    });
+    myapp.controller("MyController", function($scope) {
+        $scope.name = "Jakob";
+        $scope.age = "15";
+        $scope.getName=function(){
+            console.log($scope.name);
+        }
+        
+    });
+    /* @ - text bind above example name is text bind
+       =  - two way bind age is two way bind
+       & - one waybind
+
+       @  Used to pass a string value into the directive
+=    Used to create a two-way binding to an object that is passed into the directive
+&    Allows an external function to be passed into the directive and invoked*/
+</script>
+</html>
+

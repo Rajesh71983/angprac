@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="formapp">
+<head>
+	<title>Angular Form</title>
+	<script src="angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="MyController" >
+    <form>
+        <input type="text" name="firstName" ng-model="myForm.firstName"> First name <br/>
+        <input type="text" name="lastName"  ng-model="myForm.lastName"> Last name <br/>
+        <select ng-model="myForm.car">
+            <option value="nissan">Nissan</option>
+            <option value="toyota">Toyota</option>
+            <option value="fiat">Fiat</option>
+        </select>
+
+        <select ng-model="myForm.car2" ng-options="cars.id as cars.name for cars in myForm.options">
+            
+        </select>
+    </form>
+
+    <div>
+        {{myForm.firstName}} {{myForm.lastName}}
+        {{myForm.car2}} {{myForm.car}}
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    angular.module("formapp", [])
+            .controller("MyController", function($scope) {
+                $scope.myForm = {};
+                //$scope.myForm.firstName = "Jakob";
+                //$scope.myForm.lastName  = "Jenkov";
+
+                $scope.myForm.options = [
+              { id : "nissan", name: "Nissan" }
+             ,{ id : "toyota", name: "Toyota" }
+             ,{ id : "fiat"  , name: "Fiat" }
+             ];
+
+            } );
+</script>

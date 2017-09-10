@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+    <mytransclude>hello dude {{firstName}}</mytransclude>
+    <div>hello dude {{firstName}}</div>
+    
+</div>
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    myapp.factory("myFactory", function() {
+        return "a value";
+    });
+    myapp.directive('mytransclude', function() {
+        var directive = {};
+
+        directive.restrict = 'E'; /* restrict this directive to elements */
+        directive.transclude = true;
+        directive.template = "<div  ng-transclude></div><span>Hello this is span elements</span>";
+
+        return directive;
+    });
+    myapp.controller("MyController", function($scope, $http,myFactory) {
+        $scope.firstName = "Jakob";
+        console.log(myFactory);
+    });
+</script>
+</html>
+

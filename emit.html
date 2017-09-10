@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+        <div>hello dude {{firstName}}</div> 
+           <div ng-controller="MyChildController" >
+               <button ng-click="newemit()">New broadcast</button>
+           </div>
+    </div>
+
+    <div ng-controller="MyController" >
+        <div>hello dude {{firstName}}</div>    
+    </div>
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    
+   
+
+    
+    myapp.controller("MyController", function($scope, $http,$rootScope) {
+        $scope.firstName = "Jakob";
+
+        $scope.$on('newemitatchildcontroller',function(){
+            console.log('in parent MyChildController handler');
+        });
+
+        
+      
+    });
+
+     myapp.controller("MyController2", function($scope, $http) {
+        $scope.firstName = "Jakob";
+      
+    }); 
+
+     myapp.controller("MyChildController", function($scope, $http,$rootScope) {
+        $scope.firstName = "Jakob";
+
+        $scope.newemit = function(){
+            console.log('here')
+            $rootScope.$emit('newemitatchildcontroller');
+        }
+
+        $scope.$on('newemitatchildcontroller',function(){
+            console.log('in MyChildController handler');
+        });
+
+        $rootScope.$on('newemitatchildcontroller',function(){
+            console.log('in MyChildController root scope handler');
+        });
+
+
+      
+    });
+</script>
+</html>
+

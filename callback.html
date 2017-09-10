@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+    <div>hello dude {{result}}</div>
+    <div>hello dude {{failure}}</div>
+    <div>hello dude {{finally}}</div>
+    
+</div>
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    
+    myapp.controller("MyController", function($scope,$q) {
+     /* a general callback*/ 
+       /* $scope.add = function(x,y,callback){
+            callback(x+y);
+        } 
+
+        $scope.add(7,8,function(callback){
+            $scope.result = callback;
+        })*/
+
+        add = function(x,y){
+            var q = $q.defer();
+            var result = x + y;
+            if(result >= 0){
+                q.resolve(x+y);
+            }else{
+                q.reject('negative result'+ result);
+            }
+
+            return q.promise;
+        }
+
+        add(15,2)
+            .then(function(result){ // this block will be executed in case of the success
+                return add(result,-25)
+            }).then(function(result){ // this block will be executed in case of the success
+                return add(result,5)
+            },function(failure){
+                return 0; 
+            }).then(function(result){ // this block will be executed in case of the success
+                $scope.result = result;
+            })
+            .catch(function(failure){ 
+                // this block will be executed when the promise is rejected. one catch is enough for any number of nested method usage
+                $scope.failure = failure;
+            })
+            .finally(function(){
+                $scope.finally = 'this executed always no matter the result is success/failed'
+            })
+       
+    });
+</script>
+</html>
+

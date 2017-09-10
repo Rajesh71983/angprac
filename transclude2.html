@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+    <mytransclude>hello dude {{firstName}}</mytransclude>
+    <!--div>hello dude {{firstName}}</div-->
+    
+</div>
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    myapp.factory("myFactory", function() {
+        return "a value";
+    });
+    myapp.directive('mytransclude', function() {
+        return{
+
+        restrict : 'E', /* restrict this directive to elements */
+        transclude : true,
+        templateUrl : "1.html",
+        link : function(scope,iElement,iAttr,controller,transclude){
+            var content = transclude();
+            console.log(iElement.find("#mytranscludeele"))
+            iElement.find("#mytranscludeele").append('hello word');
+        }
+    }
+
+        
+    });
+    myapp.controller("MyController", function($scope, $http,myFactory) {
+        $scope.firstName = "Jakob";
+        console.log(myFactory);
+    });
+</script>
+</html>
+

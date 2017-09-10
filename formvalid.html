@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+    <form name="myFormNg" >
+        <input type="text" ng-class="myForm.getFormFieldCssClass(myFormNg.name)"
+               id="name" name="name" ng-model="myForm.name" ng-minlength="2"> Name <br/>
+               <div ng-show="myFormNg.name.$invalid">
+            You must enter a valid name.
+        </div>
+        <div1>helleo</div1>
+    </form>
+</div>
+</body>
+<script>
+    angular.module("myapp", [])
+            .controller("MyController", function($scope, $http) {
+                $scope.myForm = {};
+
+                $scope.myForm.getFormFieldCssClass = function(firled) {
+                    //console.log("getting css class: " + ngModelController.$valid) ;
+                    if(firled.$pristine) return "";
+                    return firled.$valid ? "fieldValid" : "fieldInvalid";
+                }
+            } ).directive('div1', function() {
+			    var directive = {};
+
+			    directive.restrict = 'E'; /* restrict this directive to elements */
+			    directive.template = "My first directive: {{myForm.name}}";
+
+			    return directive;
+			});
+</script>
+</html>
+

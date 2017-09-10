@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="formapp">
+<head>
+	<title>Angular Form</title>
+	<script src="angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="MyController" >
+    <input type="text" ng-model="name">
+    <input type="text" ng-model="sal">
+    <my-first-directive>
+    </my-first-directive>
+    {{name}} {{sal}}
+    
+</div>
+
+</body>
+</html>
+<script>
+    angular.module("formapp", [])
+            .controller("MyController", function($scope) {
+                $scope.name = "Rajesh";
+                $scope.age = "34";
+                
+
+            } ).directive('myFirstDirective',function(){
+                return {
+                    restrict: 'E',
+                    template: "Hello this is {{name}} first directive"
+                }
+            });
+</script>

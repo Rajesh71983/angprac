@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+    <div>hello dude {{firstName}}</div>
+    <!--div mystransclude>Hello all how are you</div-->
+    Controller Scope x = {{a.x}} y= {{b.y}}
+    <div mystransclude2>Transclusion Scope x = {{a.x}} y= {{b.y}}</div>
+    
+    
+</div>
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    
+    
+
+    myapp.directive('mystransclude2', function() {
+        return {
+        templateUrl: '4.html',
+        transclude: true,
+        scope:{},      
+        controller: function($scope, $element, $attrs, $transclude){
+            $scope.b = { y : 20};
+            var cScope = $scope.$new(true);
+            cScope.a = { x: 20};
+            cScope.b = { y: 120};
+            $transclude(cScope,function(transele){
+                $element.find('#innerPanel2').append(transele)
+                
+
+            });
+
+          
+        }      
+    }
+    
+
+        
+    });
+    myapp.controller("MyController", function($scope, $http) {
+        $scope.a = {x:5};
+      
+    });
+</script>
+</html>
+

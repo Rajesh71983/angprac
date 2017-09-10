@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="angular.min.js"></script>
+  <script src="angularmodel.js"></script>
+</head>
+
+<body ng-app="myapp">
+
+  <div ng-controller="MyControllerThree" >
+      <ol>
+          <li ng-repeat="item in myData.items"  ng-click="myData.doClick(item, $event)">
+              Click here</li>
+      </ol>
+
+      
+  </div>
+
+
+</body>
+</html>

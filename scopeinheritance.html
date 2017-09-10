@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+    Parent controller {{firstName}}
+        <div ng-controller="childcont">in child {{firstName}}
+        <div ng-controller="childcont2">in child {{firstName}}
+            
+        </div></div>
+        
+        
+    
+</div>
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+   
+
+        
+    
+    myapp.controller("MyController", function($scope, $http) {
+        $scope.firstName = "Jakob";
+        //console.log(myFactory);
+    });
+    myapp.controller("childcont", function($scope, $http) {
+        $scope.firstName = "Jakob2";
+        //console.log(myFactory);
+    }); 
+    myapp.controller("childcont2", function($scope, $http) {
+        $scope.firstName = "Jakob3";
+        //console.log(myFactory);
+    });
+</script>
+</html>
+

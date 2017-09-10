@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="formapp">
+<head>
+	<title>Angular Form</title>
+	<script src="angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="MyController" >
+    <input type="text" ng-model="o.p">
+    <input type="text" ng-model="o.q">
+    {{o.p}} {{o.q}}
+    <div ng-controller="MyController2">
+    <h>Child</h>
+       <input type="text" ng-model="o.p">
+    <input type="text" ng-model="o.q">
+    {{o.p}} {{o.q}}
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    angular.module("formapp", [])
+            .controller("MyController", function($scope) {
+                $scope.name = "Rajesh";
+                $scope.age = "34";
+
+                $scope.o = {
+
+                    p:50,
+                    q:100
+                }
+
+            } )
+            .controller("MyController2", ["$scope","$timeout", function($scope,$timeout) {
+               // $scope.sal = "6000";
+                $scope.location = "Chicago";
+                $timeout(function(){
+                    $scope.location = "Abhudabi";
+                }, 5000);
+
+            } ]);
+</script>

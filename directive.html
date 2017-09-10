@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="formapp">
+<head>
+	<title>Angular Form</title>
+	<script src="angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="MyController" >
+    <input type="text" ng-model="name">
+    <input type="text" ng-model="sal">
+    <my-first-directive></my-first-directive>
+    {{name}} {{sal}}
+    
+</div>
+
+</body>
+</html>
+<script>
+    angular.module("formapp", [])
+            .controller("MyController", function($scope,calService) {
+                $scope.name = "Rajesh";
+                $scope.age = "34";
+                //suchronus way
+                //$scope.newage = calService.doSum($scope.age);
+                
+                //asynchronus way 
+                calService.doSum($scope.age,function(r){
+                    $scope.newage = r;
+                });
+                console.log($scope.newage)
+
+            } )
+            .provider('calService',function () {
+                var txPer = '';
+
+                this.getVal = function(txPe){
+                    txPer = txPe;
+                };
+
+                this.$get = function () {
+                    var calcService = {};
+                    calcService.doSum = function(par1,cb){
+
+                        var sum = parseInt(par1) + parseInt(txPer);
+                        cb(sum)
+                    }
+                    return calcService;
+                };
+
+                // body...
+            }).config(['calServiceProvider',function(calServiceProvider){
+                calServiceProvider.getVal('40')
+            }]).directive('myFirstDirective',function(){
+                return {
+                    restrict: 'E',
+                    replace: true,
+                    template: "<p>Hello this is your first directive</p>"
+                }
+            });
+</script>

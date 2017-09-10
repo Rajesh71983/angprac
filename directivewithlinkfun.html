@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.min.js"></script>
+	<style>
+    .fieldValid {
+        border: 1px solid #00ff00;
+    }
+    .fieldInvalid {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+</head>
+<body>
+	<div ng-controller="MyController" >
+    <mytransclude></mytransclude>
+    <div>hello dude {{firstName}}</div>
+    
+</div>
+</body>
+<script>
+    myapp = angular.module("myapp", []);
+    
+    myapp.directive('mytransclude', function() {
+       function linkFunction($scope,element,attributes){
+            $scope.firstName='Rajesh';
+
+            $scope.changeName=function(changetext){
+                console.log('here');
+                $scope.firstName=changetext;
+            }
+       }
+        return {
+            link: linkFunction,
+            restrict : 'E', /* restrict this directive to elements */
+            template : '<div ng-click="changeName(\'Sanpan\')">My Current Name {{firstName}}</div>'
+        };
+    });
+    myapp.controller("MyController", function($scope) {
+        $scope.firstName = "Jakob";
+        
+    });
+</script>
+</html>
+

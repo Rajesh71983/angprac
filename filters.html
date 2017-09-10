@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="angular.min.js"></script>
+  <script src="angularmodel.js"></script>
+</head>
+
+<body ng-app="myapp">
+
+  <div ng-controller="MyControllertwo" >
+      <ol>
+          <li ng-repeat="item in myData.items | filter:filterArray">
+              {{item.text}} : {{$first}}, {{$middle}}, {{$last}}
+          </li>
+      </ol>
+{{myData.itemthree}}
+      <ol>
+          <li ng-repeat="itemtwo in myData.itemstwo ">
+              {{itemtwo.text | currency:"&#8377" }} 
+          </li>
+      </ol>
+  </div>
+
+
+</body>
+</html>
